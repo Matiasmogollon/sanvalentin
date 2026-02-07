@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff4d6d, #ff85a1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+  animation: fadeIn 2s ease;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+p {
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background: #ddd;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.8);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+.heart {
+  position: absolute;
+  font-size: 30px;
+  color: red;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+  <h1>Hola 💕</h1>
+  <p>Quería preguntarte algo muy especial...</p>
+  <button onclick="next()">Continuar</button>
+</div>
+
+<script>
+let step = 0;
+
+function next() {
+  const box = document.getElementById("box");
+
+  if(step === 0){
+    box.innerHTML = "<h1>Ariana, desde que llegaste a mi vida todo es más bonito 💖</h1><button onclick='next()'>Continuar</button>";
+  }
+  else if(step === 1){
+    box.innerHTML = "<h1>Me haces sonreír cuando te pienso </h1><button onclick='next()'>Continuar</button>";
+  }
+  else if(step === 2){
+    box.innerHTML = "<h1>Así que quería decirte algo desde el corazón… 💕</h1><button onclick='next()'>Continuar</button>";
+  }
+  else if(step === 3){
+    box.innerHTML = `
+      <h1>Ariana… ¿te gustaría ser mi San Valentín y compartir este día conmigo? 💘</h1>
+      <button id="yesBtn" onclick="yes()">Sí 💖</button>
+      <button id="noBtn" onclick="move()">No 🙈</button>
+    `;
+  }
+
+  step++;
+}
+
+function yes(){
+  document.getElementById("box").innerHTML = "<h1>Gracias por decir que sí, Ariana 💕</h1><p>Prometo hacerte sonreír, cuidarte y darte muchos momentos bonitos 💖</p>";
+  createHearts();
+}
+
+function move(){
+  const btn = document.getElementById("noBtn");
+  btn.style.position = "absolute";
+  btn.style.left = Math.random()*80 + "%";
+  btn.style.top = Math.random()*80 + "%";
+}
+
+function createHearts(){
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(()=> heart.remove(), 4000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
